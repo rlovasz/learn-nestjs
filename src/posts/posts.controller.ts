@@ -11,7 +11,7 @@ import PostsService from './posts.service';
 import { UpdatePostDto } from './dtos/updatePost.dto';
 import { CreatePostDto } from './dtos/createPost.dto';
 
-@Controller()
+@Controller('posts')
 export default class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
@@ -32,7 +32,7 @@ export default class PostsController {
 
   @Put(':id')
   async replacePost(@Param('id') id: string, @Body() post: UpdatePostDto) {
-    return this.postsService.replacePost(Number(id), post);
+    return this.postsService.updatePost(Number(id), post);
   }
 
   @Delete(':id')
