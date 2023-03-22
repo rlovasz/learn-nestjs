@@ -1,6 +1,5 @@
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpCode,
@@ -8,7 +7,6 @@ import {
   Req,
   Res,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import RegisterDto from './dto/register.dto';
@@ -16,9 +14,9 @@ import { LocalAuthenticationGuard } from './localAuthentication.guard';
 import RequestWithUser from './requestWithUser.interface';
 import { Response } from 'express';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
+import ResponseUserDto from '../users/dto/responseUser.dto';
 
 @Controller('authentication')
-@UseInterceptors(ClassSerializerInterceptor)
 export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
@@ -31,11 +29,17 @@ export class AuthenticationController {
   @UseGuards(LocalAuthenticationGuard)
   @Post('log-in')
   async logIn(@Req() request: RequestWithUser, @Res() response: Response) {
-    const user = request.user;
-    const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
+    const responseUser: ResponseUserDto = {
+      id: request.user.id,
+      email: request.user.email,
+      name: request.user.name,
+      address: request.user.address,
+    };
+    const cookie = this.authenticationService.getCookieWithJwtToken(
+      responseUser.id,
+    );
     response.setHeader('Set-Cookie', cookie);
-    user.password = undefined;
-    return response.send(user);
+    return response.send(responseUser);
   }
 
   @UseGuards(JwtAuthenticationGuard)
@@ -51,8 +55,12 @@ export class AuthenticationController {
   @UseGuards(JwtAuthenticationGuard)
   @Get()
   authenticate(@Req() request: RequestWithUser) {
-    const user = request.user;
-    user.password = undefined;
-    return user;
+    const responseUser: ResponseUserDto = {
+      id: request.user.id,
+      email: request.user.email,
+      name: request.user.name,
+      address: request.user.address,
+    };
+    return responseUser;
   }
 }

@@ -31,13 +31,16 @@ export default class PostsController {
   }
 
   @Post()
-  // @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtAuthenticationGuard)
   async createPost(@Body() post: CreatePostDto, @Req() req: RequestWithUser) {
     return this.postsService.createPost(post, req.user);
   }
 
   @Put(':id')
-  async replacePost(@Param('id') id: string, @Body() post: UpdatePostDto) {
+  async replacePost(
+    @Param('id') id: FindOneParams,
+    @Body() post: UpdatePostDto,
+  ) {
     return this.postsService.updatePost(Number(id), post);
   }
 

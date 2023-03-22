@@ -6,7 +6,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
 import Address from './address.entity';
 import Post from '../posts/post.entity';
 
@@ -22,7 +21,6 @@ class User {
   public name: string;
 
   @Column()
-  @Exclude()
   public password: string;
 
   @OneToOne(() => Address, {
