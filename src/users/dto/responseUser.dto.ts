@@ -1,4 +1,4 @@
-import Address from '../address.entity';
+import Address from '../addresses/address.entity';
 
 export class ResponseUserDto {
   id?: number;

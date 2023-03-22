@@ -7,6 +7,7 @@ import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { CategoriesModule } from './categories/categories.module';
+import { AddressesModule } from './users/addresses/addresses.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CategoriesModule } from './categories/categories.module';
     DatabaseModule,
     AuthenticationModule,
     CategoriesModule,
+    AddressesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
