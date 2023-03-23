@@ -15,12 +15,16 @@ import RequestWithUser from './requestWithUser.interface';
 import { Response } from 'express';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
 import ResponseUserDto from '../users/dto/responseUser.dto';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('authentication')
+@ApiTags('Authentication')
 export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'Sign up with a new user' })
+  @ApiBody({ type: RegisterDto })
   async register(@Body() registrationData: RegisterDto) {
     return this.authenticationService.register(registrationData);
   }

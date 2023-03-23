@@ -15,8 +15,10 @@ import { CreatePostDto } from './dto/createPost.dto';
 import JwtAuthenticationGuard from '../authentication/jwt-authentication.guard';
 import { FindOneParams } from '../utils/findOneParams';
 import RequestWithUser from '../authentication/requestWithUser.interface';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('posts')
+@ApiTags('Posts')
 export default class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
