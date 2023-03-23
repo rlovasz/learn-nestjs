@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { CategoriesModule } from './categories/categories.module';
 import { AddressesModule } from './users/addresses/addresses.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AddressesModule } from './users/addresses/addresses.module';
     AuthenticationModule,
     CategoriesModule,
     AddressesModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
